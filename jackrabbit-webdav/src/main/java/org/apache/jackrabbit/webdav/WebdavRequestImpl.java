@@ -34,21 +34,13 @@ import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
-import javax.servlet.AsyncContext;
-import javax.servlet.DispatcherType;
-import javax.servlet.ReadListener;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpUpgradeHandler;
-import javax.servlet.http.Part;
+import jakarta.servlet.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpUpgradeHandler;
+import jakarta.servlet.http.Part;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.jackrabbit.webdav.bind.BindInfo;
@@ -63,8 +55,6 @@ import org.apache.jackrabbit.webdav.header.PollTimeoutHeader;
 import org.apache.jackrabbit.webdav.header.TimeoutHeader;
 import org.apache.jackrabbit.webdav.lock.ActiveLock;
 import org.apache.jackrabbit.webdav.lock.LockInfo;
-import org.apache.jackrabbit.webdav.lock.Scope;
-import org.apache.jackrabbit.webdav.lock.Type;
 import org.apache.jackrabbit.webdav.observation.ObservationConstants;
 import org.apache.jackrabbit.webdav.observation.SubscriptionInfo;
 import org.apache.jackrabbit.webdav.ordering.OrderPatch;
@@ -289,7 +279,7 @@ public class WebdavRequestImpl implements WebdavRequest, DavConstants, ContentCo
      *
      * @return milliseconds indicating length of the timeout.
      * @see DavServletRequest#getTimeout()
-     * @see TimeoutHeader#parse(javax.servlet.http.HttpServletRequest, long)
+     * @see TimeoutHeader#parse(jakarta.servlet.http.HttpServletRequest, long)
      */
     public long getTimeout() {
         return TimeoutHeader.parse(httpRequest, UNDEFINED_TIMEOUT).getTimeout();
@@ -1001,12 +991,12 @@ public class WebdavRequestImpl implements WebdavRequest, DavConstants, ContentCo
     public boolean isRequestedSessionIdFromURL() {
         return httpRequest.isRequestedSessionIdFromURL();
     }
-
+/*
     @Override
     public boolean isRequestedSessionIdFromUrl() {
         return httpRequest.isRequestedSessionIdFromUrl();
     }
-
+*/
     @Override
     public Object getAttribute(String s) {
         return httpRequest.getAttribute(s);
@@ -1126,12 +1116,12 @@ public class WebdavRequestImpl implements WebdavRequest, DavConstants, ContentCo
     public RequestDispatcher getRequestDispatcher(String s) {
         return httpRequest.getRequestDispatcher(s);
     }
-
+/*
     @Override
     public String getRealPath(String s) {
         return httpRequest.getRealPath(s);
     }
-
+*/
     @Override
     public int getRemotePort() {
         return httpRequest.getRemotePort();
@@ -1227,7 +1217,22 @@ public class WebdavRequestImpl implements WebdavRequest, DavConstants, ContentCo
         return httpRequest.getDispatcherType();
     }
 
-    private static class MyServletInputStream extends ServletInputStream {
+	@Override
+	public String getRequestId() {
+		return "";
+	}
+
+	@Override
+	public String getProtocolRequestId() {
+		return "";
+	}
+
+	@Override
+	public ServletConnection getServletConnection() {
+		return null;
+	}
+
+	private static class MyServletInputStream extends ServletInputStream {
 
         private final InputStream delegate;
 

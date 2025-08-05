@@ -53,7 +53,8 @@
   <properties>
     <test.opts.memory>-Xmx256m</test.opts.memory>
     <test.opts.modules />
-    <test.opts>${test.opts.modules} ${test.opts.coverage} ${test.opts.memory} -enableassertions</test.opts>
+    <!--suppress UnresolvedMavenProperty -->
+      <test.opts>${test.opts.modules} ${test.opts.coverage} ${test.opts.memory} -enableassertions</test.opts>
     <!-- OAK version used in componenents that *implement* oak-jackrabbit-api -->
     <oak-jackrabbit-api.version.implemented>1.76.0</oak-jackrabbit-api.version.implemented>
     <!-- OAK version used in componenents that *use* oak-jackrabbit-api -->
@@ -66,7 +67,7 @@
     <logback.version>1.2.13</logback.version>
 
     <!-- determines the bytecode version (i.e. the minimum JRE required to run the build artifact) -->
-    <javaTargetVersion>11</javaTargetVersion>
+    <javaTargetVersion>21</javaTargetVersion>
     <maven.compiler.release>${javaTargetVersion}</maven.compiler.release>
     <maven.compiler.target>${javaTargetVersion}</maven.compiler.target>
     <minimalJavaBuildVersion>${javaTargetVersion}</minimalJavaBuildVersion>
@@ -558,6 +559,11 @@
         <artifactId>derby</artifactId>
         <version>10.15.2.0</version>
       </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
       <dependency>
         <groupId>org.apache.derby</groupId>
         <artifactId>derbytools</artifactId>
@@ -569,16 +575,16 @@
         <version>2.0.0</version>
       </dependency>
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>3.1.0</version>
+        <groupId>jakarta.servlet</groupId>
+        <artifactId>jakarta.servlet-api</artifactId>
+        <version>6.0.0</version>
         <scope>provided</scope>
       </dependency>
-      <dependency>
-        <groupId>commons-fileupload</groupId>
-        <artifactId>commons-fileupload</artifactId>
-        <version>1.5</version>
-      </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-fileupload2-jakarta-servlet6</artifactId>
+            <version>2.0.0-M2</version>
+        </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-server</artifactId>

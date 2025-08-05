@@ -129,6 +129,11 @@
       <artifactId>derbytools</artifactId>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>jakarta.servlet</groupId>
+          <artifactId>jakarta.servlet-api</artifactId>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 
   <build>

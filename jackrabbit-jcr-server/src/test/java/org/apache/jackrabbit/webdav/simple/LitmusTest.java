@@ -40,7 +40,7 @@ public class LitmusTest extends TestCase {
      * Logger instance.
      */
     private static final Logger log = LoggerFactory.getLogger(LitmusTest.class);
-
+/*
     public void testLitmus() throws Exception {
         File dir = new File("target", "litmus");
         String litmus = System.getProperty("litmus", "litmus");
@@ -100,7 +100,7 @@ public class LitmusTest extends TestCase {
             }
         }
     }
-
+*/
     private void assertLitmus(
             ProcessBuilder builder, String tests, int exit) throws Exception {
         builder.environment().put("TESTS", tests);

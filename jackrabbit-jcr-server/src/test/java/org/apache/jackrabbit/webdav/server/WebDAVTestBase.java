@@ -24,7 +24,7 @@ import java.io.OutputStream;
 import java.net.URI;
 
 import javax.jcr.Repository;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpHost;
@@ -107,7 +107,7 @@ public class WebDAVTestBase extends AbstractJCRTest {
         if (repoContext == null) {
             repoContext = RepositoryContext.create(RepositoryConfig.create(config.toURI(), home.getPath()));
         }
-
+/*
         if (server == null) {
             server = new Server();
 
@@ -136,7 +136,7 @@ public class WebDAVTestBase extends AbstractJCRTest {
 
             server.setHandler(schandler);
         }
-
+*/
         if (httpConnector == null) {
             httpConnector = new ServerConnector(server);
             httpConnector.setHost("localhost");

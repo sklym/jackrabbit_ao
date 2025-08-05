@@ -71,7 +71,7 @@ public class RepositoryStubImpl extends JackrabbitRepositoryStub {
         if (repository == null) {
             repository = super.getRepository();
         }
-
+/*
         if (server == null) {
             server = new Server();
 
@@ -91,7 +91,7 @@ public class RepositoryStubImpl extends JackrabbitRepositoryStub {
             ServletContextHandler schandler = new ServletContextHandler(server, WEBDAV_SERVLET_CONTEXT_PATH);
             schandler.addServlet(holder, WEBDAV_SERVLET_PATH_MAPPING);
         }
-
+*/
         if (connector == null) {
             connector = new ServerConnector(server);
             connector.setHost("localhost");

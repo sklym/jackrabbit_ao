@@ -80,7 +80,7 @@ public class ConcurrentSaveTest extends AbstractJCRTest {
                         testNode.save();
                         log.info("created node: node" + i);
                         // give other thread a chance to catch up
-                        yield();
+                       // yield();
                     }
                 } catch (Exception e) {
                     exceptions.add(e);

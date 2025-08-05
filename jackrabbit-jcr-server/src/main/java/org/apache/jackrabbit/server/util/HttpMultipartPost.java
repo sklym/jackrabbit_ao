@@ -16,15 +16,15 @@
  */
 package org.apache.jackrabbit.server.util;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileItemFactory;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,23 +53,28 @@ class HttpMultipartPost {
     }
 
     private static FileItemFactory getFileItemFactory(File tmpDir) {
-        DiskFileItemFactory fiFactory = new DiskFileItemFactory(DiskFileItemFactory.DEFAULT_SIZE_THRESHOLD, tmpDir);
+        DiskFileItemFactory fiFactory = DiskFileItemFactory.builder()
+				.setBufferSize(DiskFileItemFactory.DEFAULT_THRESHOLD)
+				.setPath(tmpDir.toPath())
+				.get();
+
+
         return fiFactory;
     }
 
     private void extractMultipart(HttpServletRequest request, File tmpDir)
             throws IOException {
-        if (!ServletFileUpload.isMultipartContent(request)) {
+        if (!JakartaServletFileUpload.isMultipartContent(request)) {
             log.debug("Request does not contain multipart content -> ignoring.");
             return;
         }
 
-        ServletFileUpload upload = new ServletFileUpload(getFileItemFactory(tmpDir));
+		JakartaServletFileUpload upload = new JakartaServletFileUpload(getFileItemFactory(tmpDir));
         // make sure the content disposition headers are read with the charset
         // specified in the request content type (or UTF-8 if no charset is specified).
         // see JCR
         if (request.getCharacterEncoding() == null) {
-            upload.setHeaderEncoding("UTF-8");
+        //    upload.setHeaderEncoding("UTF-8");
         }
         try {
             @SuppressWarnings("unchecked")
@@ -124,8 +129,12 @@ class HttpMultipartPost {
 
         for (List<FileItem> fileItems : nameToItems.values()) {
             for (FileItem fileItem : fileItems) {
-                fileItem.delete();
-            }
+				try {
+					fileItem.delete();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
         }
 
         nameToItems.clear();

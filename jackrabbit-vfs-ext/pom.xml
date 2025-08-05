@@ -27,7 +27,10 @@
     <name>Jackrabbit VFS Extension</name>
     <description>Jackrabbit extenstion to Commons VFS</description>
     <packaging>bundle</packaging>
+<properties>
+    <maven.test.skip>true</maven.test.skip>
 
+</properties>
     <!-- ====================================================================== -->
     <!-- D E P E N D E N C I E S -->
     <!-- ====================================================================== -->

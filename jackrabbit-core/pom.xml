@@ -36,6 +36,8 @@
   <properties>
     <org.apache.jackrabbit.test.integration>false</org.apache.jackrabbit.test.integration>
     <test.opts.memory>-Xmx512m</test.opts.memory>
+
+
   </properties>
 
   <build>

@@ -69,7 +69,7 @@ Repository repository = (Repository) context.lookup(...);
 </p>
 <pre>
 <b>import</b> javax.jcr.Repository;
-<b>import</b> javax.servlet.ServletContext;
+<b>import</b> jakarta.servlet.ServletContext;
 
 ServletContext context = ...; // <em>context of your servlet</em>
 ServletContext jackrabbit =
